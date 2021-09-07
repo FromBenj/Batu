@@ -13,6 +13,9 @@
             {% block content %}{% endblock %}
         </div>
         {% block js %}
+            <script>
+                let viewportReplaceUrl = "{{ path('viewport') }}"
+            </script>
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </body>

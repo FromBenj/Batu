@@ -1,3 +1,8 @@
 #main-content {
     margin: 4vw 6vw;
 }
+
+#viewport-error-main-content {
+    width: 100vw;
+    height: 100vh;
+}

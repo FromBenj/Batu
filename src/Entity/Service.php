@@ -52,6 +52,11 @@ class Service
      */
     private $price = [];
 
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $coordinates = [];
+
     public function getId(): ?int
     {
         return $this->id;
@@ -137,6 +142,18 @@ class Service
     public function setPrice(array $price): self
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    public function getCoordinates(): ?array
+    {
+        return $this->coordinates;
+    }
+
+    public function setCoordinates(?array $coordinates): self
+    {
+        $this->coordinates = $coordinates;
 
         return $this;
     }
