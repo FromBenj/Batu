@@ -1,0 +1,8 @@
+#services-map {
+    height: 300px;
+    position: relative;
+}
+
+.leaflet-bottom.leaflet-right {
+    display: none !important;
+}

@@ -1,6 +1,6 @@
 import mapPin from '../icons/map-pin.svg';
 
-export function serviceMap() {
+export function servicesMap() {
     const services = [
         {
             "type": "Feature",
@@ -35,7 +35,7 @@ export function serviceMap() {
 
     // The API Key provided is restricted to JSFiddle website
     // Get your own API Key on https://myprojects.geoapify.com
-    const myAPIKey = "713805a371d74ea29e7664a7a1316fc4";
+    const myAPIKey = geoapifyApiKey;
     // Retina displays require different mat tiles quality
     const isRetina = L.Browser.retina;
 

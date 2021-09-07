@@ -14,7 +14,8 @@
         </div>
         {% block js %}
             <script>
-                let viewportReplaceUrl = "{{ path('viewport') }}"
+                const viewportReplaceUrl = "{{ path('viewport') }}"
+                const geoapifyApiKey = "{{ geoapify_api_key }}"
             </script>
             {{ encore_entry_script_tags('app') }}
         {% endblock %}

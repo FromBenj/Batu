@@ -31,7 +31,7 @@ export function addressAutocomplete(containerElement, inputElement) {
         /* Create a new promise and send geocoding request */
         let promise = new Promise((resolve, reject) => {
             currentPromiseReject = reject;
-            const apiKey = "713805a371d74ea29e7664a7a1316fc4";
+            const apiKey = geoapifyApiKey;
             const url = `https://api.geoapify.com/v1/geocode/autocomplete?text=${encodeURIComponent(currentValue)}&limit=5&filter=fr&apiKey=${apiKey}`;
             fetch(url)
             .then(response => {

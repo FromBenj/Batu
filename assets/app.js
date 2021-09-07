@@ -8,8 +8,8 @@ require('bootstrap');
 
 //leaflet
 require('leaflet');
-import {serviceMap} from './js/serviceMap';
-serviceMap();
+import {servicesMap} from './js/servicesMap';
+servicesMap();
 
 //Viewport management
 import {viewportManagement} from "./js/allowedViewport";
