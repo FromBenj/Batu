@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Service;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,8 +15,8 @@ class ServiceType extends AbstractType
     {
         $builder
             ->add('category', ChoiceType::class, [
-                'required'   => true,
-                'choices'  => [
+                'required' => true,
+                'choices' => [
                     'Psychologist' => 'Psychologist',
                     'Doctor' => 'Doctor',
                     'Accomodation' => 'Accomodation',
@@ -26,7 +27,7 @@ class ServiceType extends AbstractType
                 'required' => true,
                 'multiple' => true,
                 'expanded' => true,
-                'choices'  => [
+                'choices' => [
                     'English' => 'English',
                     'اللغة العربية' => 'Arabic',
                     'Français' => 'French',
@@ -34,9 +35,16 @@ class ServiceType extends AbstractType
             ])
             ->add('specialization')
             ->add('description')
-            ->add('address')
             ->add('addressDetails')
             ->add('price')
+            ->add('housenumber', HiddenType::class)
+            ->add('street', HiddenType::class)
+            ->add('postcode', HiddenType::class)
+            ->add('city', HiddenType::class)
+            ->add('country', HiddenType::class)
+            ->add('county', HiddenType::class)
+            ->add('latitude', HiddenType::class)
+            ->add('longitude', HiddenType::class)
         ;
     }
 
@@ -47,3 +55,4 @@ class ServiceType extends AbstractType
         ]);
     }
 }
+

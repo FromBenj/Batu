@@ -1,19 +1,35 @@
 export function addressAutocomplete(containerElement, inputElement) {
-    let isChild = false
+
+    let number = document.getElementById('service_housenumber');
+    let street = document.getElementById('service_street');
+    let postcode = document.getElementById('service_postcode');
+    let city = document.getElementById('service_city');
+    let country = document.getElementById('service_country');
+    let county = document.getElementById('service_county');
+    let latitude = document.getElementById('service_latitude');
+    let longitude = document.getElementById('service_longitude');
+
+    if(!containerElement || !inputElement) {
+        return false;
+    }
+
+    let isChild = false;
     containerElement.childNodes.forEach(
         element => {
             if (element.id === "service_address") {
-                isChild = true
+                isChild = true;
             }
         }
     )
     if (!isChild) {
-        return false
+        return false;
     }
+
     /* Active request promise reject function. To be able to cancel the promise when a new request comes */
     let currentPromiseReject;
 
     function findAddress() {
+        removeValues([number, street, postcode, city, country, county, latitude, longitude]);
         closeDropDownList();
         let currentValue = this.value;
         // Cancel previous request promise
@@ -59,8 +75,15 @@ export function addressAutocomplete(containerElement, inputElement) {
                 itemElement.innerHTML = feature.properties.formatted;
                 autocompleteItemsElement.appendChild(itemElement);
                 itemElement.addEventListener('click', () => {
-                    this.value = itemElement.innerHTML
-                    console.log([feature.properties.lat, feature.properties.lon])
+                    this.value = itemElement.innerHTML;
+                    number.value = parseInt(feature.properties.housenumber);
+                    street.value = feature.properties.street;
+                    postcode.value = parseInt(feature.properties.postcode);
+                    city.value = feature.properties.city;
+                    country.value = feature.properties.country;
+                    county.value = feature.properties.county;
+                    latitude.value = parseFloat(feature.properties.lat);
+                    longitude.value = parseFloat(feature.properties.lon);
                     closeDropDownList()
                 })
             });
@@ -78,6 +101,13 @@ export function addressAutocomplete(containerElement, inputElement) {
         }
     }
 
+    function removeValues(inputs) {
+        inputs.forEach((input) => {
+            input.value='';
+        })
+    }
+
+    
     inputElement.addEventListener("input", findAddress);
     inputElement.addEventListener("keydown", findAddress);
 }

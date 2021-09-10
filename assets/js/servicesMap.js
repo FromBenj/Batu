@@ -1,6 +1,14 @@
 import mapPin from '../icons/map-pin.svg';
 
 export function servicesMap() {
+    if(!document.getElementById('services-map')) {
+        return false;
+    }
+
+    // Leaflet has native support for raster maps, So you can create a map with a few commands only!
+    // The Leaflet map Object
+    const map = L.map('services-map').setView([48.7326, 2.16923], 10);
+
     const services = [
         {
             "type": "Feature",
@@ -27,11 +35,6 @@ export function servicesMap() {
             }
         },
     ]
-
-    // Leaflet has native support for raster maps, So you can create a map with a few commands only!
-
-    // The Leaflet map Object
-    const map = L.map('services-map').setView([48.7326, 2.16923], 10);
 
     // The API Key provided is restricted to JSFiddle website
     // Get your own API Key on https://myprojects.geoapify.com

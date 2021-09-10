@@ -38,11 +38,6 @@ class Service
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $address;
-
-    /**
      * @ORM\Column(type="text")
      */
     private $addressDetails;
@@ -53,9 +48,44 @@ class Service
     private $price = [];
 
     /**
-     * @ORM\Column(type="array", nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
-    private $coordinates = [];
+    private $city;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $country;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $housenumber;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $street;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $county;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $latitude;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $longitude;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $postcode;
 
     public function getId(): ?int
     {
@@ -148,12 +178,113 @@ class Service
 
     public function getCoordinates(): ?array
     {
-        return $this->coordinates;
+        if($this->latitude && $this->longitude) {
+            return [$this->latitude, $this->longitude];
+        }
+
+        return null;
     }
 
-    public function setCoordinates(?array $coordinates): self
+    public function setCoordinates(float $latitude, float $longitude): self
     {
-        $this->coordinates = $coordinates;
+        $this->setLatitude($latitude);
+        $this->setLongitude($longitude);
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(string $country): self
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    public function getHousenumber(): ?string
+    {
+        return $this->housenumber;
+    }
+
+    public function setHousenumber(?string $housenumber): self
+    {
+        $this->housenumber = $housenumber;
+
+        return $this;
+    }
+
+    public function getStreet(): ?string
+    {
+        return $this->street;
+    }
+
+    public function setStreet(?string $street): self
+    {
+        $this->street = $street;
+
+        return $this;
+    }
+
+    public function getCounty(): ?string
+    {
+        return $this->county;
+    }
+
+    public function setCounty(?string $county): self
+    {
+        $this->county = $county;
+
+        return $this;
+    }
+
+    public function getLatitude(): ?float
+    {
+        return $this->latitude;
+    }
+
+    public function setLatitude(float $latitude): self
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    public function getLongitude(): ?float
+    {
+        return $this->longitude;
+    }
+
+    public function setLongitude(float $longitude): self
+    {
+        $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    public function getPostcode(): ?int
+    {
+        return $this->postcode;
+    }
+
+    public function setPostcode(?int $postcode): self
+    {
+        $this->postcode = $postcode;
 
         return $this;
     }
