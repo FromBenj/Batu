@@ -13,6 +13,7 @@
         <div id="main-content">
             {% block content %}{% endblock %}
         </div>
+        {% include 'layout/footer.html.twig' %}
         {% block js %}
             <script>
                 const viewportReplaceUrl = "{{ path('viewport') }}"

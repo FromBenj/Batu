@@ -1,13 +1,13 @@
-<div id="header-container" class="container">
+<div id="header-container" class="container pt-3">
     <div class="row">
-        <div class="col-3">
-            One of three columns
+        <div class="col-3 d-flex align-items-center justify-content-start">
+            <img src="{{ asset('build/icons/translation.svg') }}" alt="Translation button" class="header-icon ml-20px"/>
         </div>
         <div class="col-6 d-flex justify-content-center align-items-center">
-            <div class="text-center fw-bold text-batu">Batu</div>
+            <div class="text-center text-batu" id="header-title">Batu</div>
         </div>
-        <div class="col-3">
-            One of three columns
+        <div class="col-3 d-flex align-items-center justify-content-end">
+            <img src="{{ asset('build/icons/power-button.svg') }}" alt="Power button" class="header-icon mr-20px"/>
         </div>
     </div>
 </div>

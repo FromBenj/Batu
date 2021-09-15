@@ -1,8 +1,10 @@
 {% extends 'layout/base.html.twig' %}
 
 {% block content %}
-    <div>
-        {{ "app.professional.service.new"|trans }}
+    <div class="d-flex justify-content-center align-items-center">
+        <div class="fw-bold text-center">
+            {{ "app.professional.service.new"|trans }}
+        </div>
     </div>
     {% form_theme form_service 'bootstrap_5_layout.html.twig' %}
     <form method="post" action="{{ path('professional_new-service') }}" autocomplete="off">
