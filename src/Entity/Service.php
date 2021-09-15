@@ -38,14 +38,14 @@ class Service
     private $description;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $addressDetails;
 
     /**
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="string", length=255)
      */
-    private $price = [];
+    private $price;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -164,12 +164,12 @@ class Service
         return $this;
     }
 
-    public function getPrice(): ?array
+    public function getPrice(): ?string
     {
         return $this->price;
     }
 
-    public function setPrice(array $price): self
+    public function setPrice(string $price): self
     {
         $this->price = $price;
 

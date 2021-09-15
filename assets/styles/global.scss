@@ -1,0 +1,29 @@
+//Colors
+$second-color: #ccffd9;
+$third-color: #398090;
+$logo-font: "Comfortaa", "Open-Sans","Roboto";
+
+#main-content {
+    margin: 4vw 6vw;
+}
+
+#viewport-error-main-content {
+    width: 100vw;
+    height: 100vh;
+}
+
+.success-button {
+    background-color: $second-color;
+    color: $third-color;
+    font-weight: bold;
+    width: 100%;
+}
+
+#header-container {
+    width: 100%;
+    height: 70px;
+}
+
+.text-batu {
+    font-family: $logo-font;
+}

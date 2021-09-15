@@ -36,7 +36,7 @@ class ServiceType extends AbstractType
             ->add('specialization')
             ->add('description')
             ->add('addressDetails')
-            ->add('price')
+            ->add('price', HiddenType::class)
             ->add('housenumber', HiddenType::class)
             ->add('street', HiddenType::class)
             ->add('postcode', HiddenType::class)

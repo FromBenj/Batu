@@ -65,15 +65,20 @@ export function addressAutocomplete(containerElement, inputElement) {
             currentItems = data.features;
             /*create a DIV element that will contain the items (values):*/
             let autocompleteItemsElement = document.createElement("div");
+            autocompleteItemsElement.setAttribute('class', 'w-100')
             autocompleteItemsElement.setAttribute("id", "address-autocomplete-items");
             containerElement.appendChild(autocompleteItemsElement);
             /* For each item in the results */
             currentItems.forEach((feature) => {
                 /* Create a DIV element for each element: */
                 let itemElement = document.createElement("div");
+                itemElement.setAttribute('class', 'w-100')
                 /* Set formatted address as item value */
                 itemElement.innerHTML = feature.properties.formatted;
                 autocompleteItemsElement.appendChild(itemElement);
+                itemElement.addEventListener('keydown', () => {
+                itemElement.addClass('success-button')
+                })
                 itemElement.addEventListener('click', () => {
                     this.value = itemElement.innerHTML;
                     number.value = parseInt(feature.properties.housenumber);
@@ -107,7 +112,7 @@ export function addressAutocomplete(containerElement, inputElement) {
         })
     }
 
-    
+
     inputElement.addEventListener("input", findAddress);
-    inputElement.addEventListener("keydown", findAddress);
+    inputElement.addEventListener("keyup", findAddress);
 }
