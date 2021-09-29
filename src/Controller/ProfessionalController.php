@@ -23,6 +23,7 @@ class ProfessionalController extends AbstractController
         $serviceForm = $this->createForm(ServiceType::class, $service);
         $serviceForm->handleRequest($request);
 
+
         if ($serviceForm->isSubmitted() && $serviceForm->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($service);

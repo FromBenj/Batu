@@ -5,11 +5,27 @@ namespace App\Entity;
 use App\Repository\ServiceRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * @ORM\Entity(repositoryClass=ServiceRepository::class)
  */
 class Service
 {
+    CONST CATEGORIES = [
+        "Psychologist",
+        "Family Doctor",
+        "Accommodation",
+        "Food and Drinks",
+        "Hairdresser",
+    ];
+
+    CONST LANGUAGES = [
+        "English",
+        "Arabic",
+        "French",
+    ];
+
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -87,6 +103,8 @@ class Service
      */
     private $postcode;
 
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -99,7 +117,9 @@ class Service
 
     public function setCategory(string $category): self
     {
+        if (in_array($category,self::CATEGORIES)) {
         $this->category = $category;
+        }
 
         return $this;
     }
@@ -111,7 +131,13 @@ class Service
 
     public function setLanguages(array $languages): self
     {
-        $this->languages = $languages;
+        $chosenLanguages = [];
+        foreach ($languages as $language) {
+            if (in_array($language, self::LANGUAGES, true)) {
+                $chosenLanguages[] = $language;
+            }
+            $this->languages = $chosenLanguages;
+        }
 
         return $this;
     }
