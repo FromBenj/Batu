@@ -13,6 +13,6 @@ class ViewPortController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('viewport/index.html.twig');
+        return $this->render('viewport/home.html.twig');
     }
 }

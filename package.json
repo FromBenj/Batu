@@ -23,6 +23,7 @@
         "@popperjs/core": "^2.10.1",
         "bootstrap": "^5.1.0",
         "jquery": "^3.6.0",
-        "leaflet": "^1.7.1"
+        "leaflet": "^1.7.1",
+        "swiper": "^7.0.8"
     }
 }

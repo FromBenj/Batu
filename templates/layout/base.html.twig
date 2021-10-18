@@ -4,9 +4,8 @@
         <meta charset="UTF-8" name="viewport"
               content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <title>{% block title %}{% endblock %}</title>
-        {% block css %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+        {{ encore_entry_link_tags('app') }}
+        {% block css %}{% endblock %}
     </head>
     <body>
         {% include 'layout/header.html.twig' %}
@@ -14,12 +13,12 @@
             {% block content %}{% endblock %}
         </div>
         {% include 'layout/footer.html.twig' %}
+        <script>
+            const viewportReplaceUrl = "{{ path('viewport') }}"
+            const geoapifyApiKey = "{{ geoapify_api_key }}"
+        </script>
+        {{ encore_entry_script_tags('app') }}
         {% block js %}
-            <script>
-                const viewportReplaceUrl = "{{ path('viewport') }}"
-                const geoapifyApiKey = "{{ geoapify_api_key }}"
-            </script>
-            {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </body>
 </html>

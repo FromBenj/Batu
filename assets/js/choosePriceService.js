@@ -10,6 +10,7 @@ export function choosePrice(){
         input.setAttribute('step', '0.1')
         input.setAttribute('min', '0.1')
         input.setAttribute('placeholder', 'Your price')
+        priceValue.value = price.value;
         price.addEventListener('click', () => {
             if (price.value === "open" || price.value === "free") {
                 if(priceContainer.contains(input)) {

@@ -11,37 +11,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Service
 {
-    CONST CATEGORIES = [
-        "Psychologist",
-        "Family Doctor",
-        "Accommodation",
-        "Food and Drinks",
-        "Hairdresser",
-    ];
-
-    CONST LANGUAGES = [
-        "English",
-        "Arabic",
-        "French",
-    ];
-
-
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
     private $id;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $category;
-
-    /**
-     * @ORM\Column(type="array")
-     */
-    private $languages = [];
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -57,11 +32,6 @@ class Service
      * @ORM\Column(type="text", nullable=true)
      */
     private $addressDetails;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $price;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -103,43 +73,47 @@ class Service
      */
     private $postcode;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $priceType;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $price;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $endingTime;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $startingTime;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Professional::class, inversedBy="services")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $professional;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Appointment::class, mappedBy="service", cascade={"persist", "remove"})
+     */
+    private $appointment;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=ServiceCategory::class, inversedBy="services")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $category;
 
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getCategory(): ?string
-    {
-        return $this->category;
-    }
-
-    public function setCategory(string $category): self
-    {
-        if (in_array($category,self::CATEGORIES)) {
-        $this->category = $category;
-        }
-
-        return $this;
-    }
-
-    public function getLanguages(): ?array
-    {
-        return $this->languages;
-    }
-
-    public function setLanguages(array $languages): self
-    {
-        $chosenLanguages = [];
-        foreach ($languages as $language) {
-            if (in_array($language, self::LANGUAGES, true)) {
-                $chosenLanguages[] = $language;
-            }
-            $this->languages = $chosenLanguages;
-        }
-
-        return $this;
     }
 
     public function getSpecialization(): ?string
@@ -186,18 +160,6 @@ class Service
     public function setAddressDetails(string $addressDetails): self
     {
         $this->addressDetails = $addressDetails;
-
-        return $this;
-    }
-
-    public function getPrice(): ?string
-    {
-        return $this->price;
-    }
-
-    public function setPrice(string $price): self
-    {
-        $this->price = $price;
 
         return $this;
     }
@@ -311,6 +273,95 @@ class Service
     public function setPostcode(?int $postcode): self
     {
         $this->postcode = $postcode;
+
+        return $this;
+    }
+
+    public function getPriceType(): ?string
+    {
+        return $this->priceType;
+    }
+
+    public function setPriceType(string $priceType): self
+    {
+        $this->priceType = $priceType;
+
+        return $this;
+    }
+
+    public function getPrice(): ?float
+    {
+        return $this->price;
+    }
+
+    public function setPrice(?float $price): self
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    public function getEndingTime(): ?\DateTimeInterface
+    {
+        return $this->endingTime;
+    }
+
+    public function setEndingTime(\DateTimeInterface $endingTime): self
+    {
+        $this->endingTime = $endingTime;
+
+        return $this;
+    }
+
+    public function getStartingTime(): ?\DateTimeInterface
+    {
+        return $this->startingTime;
+    }
+
+    public function setStartingTime(\DateTimeInterface $startingTime): self
+    {
+        $this->startingTime = $startingTime;
+
+        return $this;
+    }
+
+    public function getProfessional(): ?Professional
+    {
+        return $this->professional;
+    }
+
+    public function setProfessional(?Professional $professional): self
+    {
+        $this->professional = $professional;
+
+        return $this;
+    }
+
+    public function getAppointment(): ?Appointment
+    {
+        return $this->appointment;
+    }
+
+    public function setAppointment(Appointment $appointment): self
+    {
+        // set the owning side of the relation if necessary
+        if ($appointment->getService() !== $this) {
+            $appointment->setService($this);
+        }
+
+        $this->appointment = $appointment;
+
+        return $this;
+    }
+
+    public function getCategory(): ?ServiceCategory
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?ServiceCategory $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }

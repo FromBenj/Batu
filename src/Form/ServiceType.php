@@ -41,24 +41,29 @@ class ServiceType extends AbstractType
                 'required' => true,
                 'choices' => $categoriesList,
             ])
-            ->add('languages', ChoiceType::class, [
+            /*->add('languages', ChoiceType::class, [
                 'required' => true,
                 'multiple' => true,
                 'expanded' => true,
                 'choices' => $languagesList,
-            ])
+            ])*/
             ->add('specialization')
             ->add('description')
             ->add('addressDetails')
             ->add('price', HiddenType::class)
+            ->add('priceType', HiddenType::class)
             ->add('housenumber', HiddenType::class)
             ->add('street', HiddenType::class)
             ->add('postcode', HiddenType::class)
             ->add('city', HiddenType::class)
             ->add('country', HiddenType::class)
             ->add('county', HiddenType::class)
-            ->add('latitude', HiddenType::class)
-            ->add('longitude', HiddenType::class)
+            ->add('latitude', HiddenType::class,[
+                'required' => true,
+            ])
+            ->add('longitude', HiddenType::class, [
+                'required' => true,
+            ])
         ;
     }
 

@@ -20,6 +20,12 @@ $logo-font: "Comfortaa", "Open-Sans","Roboto";
     width: 100%;
 }
 
+.hover-success-button:hover {
+    background-color: $second-color;
+    color: $third-color;
+    cursor: pointer;
+}
+
 .text-batu {
     font-family: $logo-font;
     font-weight: bold;

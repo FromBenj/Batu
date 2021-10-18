@@ -29,3 +29,6 @@ addressAutocomplete(addressContainer, addressInput);
 //Choosing price of a service
 import {choosePrice} from "./js/choosePriceService";
 choosePrice();
+
+//swiper
+import {swiper} from "./js/categoriesSlider";

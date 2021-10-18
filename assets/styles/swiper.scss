@@ -1,0 +1,22 @@
+.service-category-icon {
+  height: 65px;
+}
+
+.swiper {
+  height: 230px;
+  padding-bottom: 45px;
+}
+
+.swiper-slide {
+  border-radius: 4px;
+}
+.swiper-slide:hover {
+  cursor: pointer;
+}
+
+
+@media (max-width: 480px) {
+  .swiper-arrow {
+    display: none;
+  }
+}
