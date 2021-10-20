@@ -6,6 +6,7 @@ use App\Entity\Beneficiary;
 use App\Entity\ServiceCategory;
 use App\Entity\Service;
 use App\Repository\ServiceCategoryRepository;
+use App\Repository\ServiceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -29,31 +30,23 @@ class BeneficiaryController extends AbstractController
     }
 
     /**
-     * @Route("/home/{username}/{category}", name="category", methods={"GET"})
-     * @Entity("category", expr="repository.findOneByName(category)")
+     * @Route("/{category}/{username}", name="category", methods={"GET"})
+     * @Entity("category", expr="repository.findOneBySlug(category)")
      */
-    public function categoryServices(Beneficiary $beneficiary, ServiceCategory $category, ServiceCategoryRepository $serviceCategoryRepository): Response
+    public function categoryServices(Beneficiary $beneficiary, ServiceCategory $category, ServiceCategoryRepository $serviceCategoryRepository, ServiceRepository $serviceRepository): Response
     {
+        $services = $serviceRepository->findBy(
+            [
+                "category" => $category,
+            ]
+        );
         $serviceCategories = $serviceCategoryRepository->findAll();
+
         return $this->render('beneficiary/category.html.twig', [
+            'services'           => $services,
             'beneficiary'        => $beneficiary,
             'service_categories' => $serviceCategories,
             'category'           => $category
-        ]);
-    }
-
-
-
-
-
-
-    /**
-     * @Route("/services/example", name="servicies")
-     */
-    public function example(): Response
-    {
-        return $this->render('beneficiary/services.html.twig', [
-            'controller_name' => 'BeneficiaryController',
         ]);
     }
 }

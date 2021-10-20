@@ -6,6 +6,7 @@ use App\Repository\ServiceCategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Service\SlugManager;
 
 /**
  * @ORM\Entity(repositoryClass=ServiceCategoryRepository::class)
@@ -39,6 +40,11 @@ class ServiceCategory
      */
     private $color;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $slug;
+
     public function __construct()
     {
         $this->services = new ArrayCollection();
@@ -57,6 +63,7 @@ class ServiceCategory
     public function setName(string $name): self
     {
         $this->name = $name;
+        $this->setSlug();
 
         return $this;
     }
@@ -111,6 +118,19 @@ class ServiceCategory
     public function setColor(?string $color): self
     {
         $this->color = $color;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(): self
+    {
+        $slugify = new SlugManager();
+        $this->slug = $slugify->generate($this->name);
 
         return $this;
     }

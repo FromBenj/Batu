@@ -1,7 +1,7 @@
 {% extends 'layout/base.html.twig' %}
 
 {% block content %}
-    <div class="swiper-slide d-flex flex-column align-items-center justify-content-center" style="background-color: {{ category.color }}">
+    <div class="swiper-slide d-flex flex-column align-items-center justify-content-center pb-2 pt-2" style="background-color: {{ category.color }}">
         <div class="d-flex h-50 justify-content-center align-items-center">
             {% if category.icon %}
                 <img src="{{ asset('build/icons/'~ category.icon) }}" alt="{{ category.name }} Category" class="service-category-icon"/>
@@ -11,5 +11,23 @@
             {{ category.name }}
         </div>
     </div>
+    <div id="services-map"></div>
+    {% foreach service in services %}
+        <div>{{ service.title }}</div>
+    {% endif %}
 {% endblock %}
 
+{% block js %}
+    <script>
+        let services = {
+        {% foreach service in services %}
+            {
+                title: {{ service.title }},
+                longitude: {{ service.longitude }},
+                latitude: {{ service.latitude }},
+
+            },
+        {% endfor %}
+        }
+    </script>
+{% endblock %}

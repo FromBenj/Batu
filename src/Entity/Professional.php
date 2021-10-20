@@ -55,9 +55,15 @@ class Professional implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $services;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Appointment::class, mappedBy="professional")
+     */
+    private $appointments;
+
     public function __construct()
     {
         $this->services = new ArrayCollection();
+        $this->appointments = new ArrayCollection();
     }
 
 
@@ -192,6 +198,36 @@ class Professional implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($service->getProfessional() === $this) {
                 $service->setProfessional(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Appointment[]
+     */
+    public function getAppointments(): Collection
+    {
+        return $this->appointments;
+    }
+
+    public function addAppointment(Appointment $appointment): self
+    {
+        if (!$this->appointments->contains($appointment)) {
+            $this->appointments[] = $appointment;
+            $appointment->setProfessional($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAppointment(Appointment $appointment): self
+    {
+        if ($this->appointments->removeElement($appointment)) {
+            // set the owning side to null (unless already changed)
+            if ($appointment->getProfessional() === $this) {
+                $appointment->setProfessional(null);
             }
         }
 

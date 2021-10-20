@@ -5,7 +5,7 @@
     <div class="swiper">
         <div class="swiper-wrapper">
             {% for category in service_categories %}
-                <div class="swiper-slide d-flex flex-column align-items-center justify-content-center" id="{{ category.name }}-category" style="background-color: {{ category.color }}">
+                <div class="swiper-slide d-flex flex-column align-items-center justify-content-center" id="{{ category.slug }}-category" style="background-color: {{ category.color }}">
                     <div class="d-flex h-50 justify-content-center align-items-center">
                         {% if category.icon %}
                             <img src="{{ asset('build/icons/'~ category.icon) }}" alt="{{ category.name }} Category" class="service-category-icon"/>
@@ -30,13 +30,13 @@
     <script>
         const swiperSlides = document.getElementsByClassName("swiper-slide")
         for (let i = 0; i < swiperSlides.length; i++) {
-            let cardId = swiperSlides[i].id
+            let cardId = swiperSlides[i].id;
             let card = document.getElementById(cardId);
+            let categorySlug = cardId.replace("-category","")
             let cardUrl = "{{ path('beneficiary_category', {'username':beneficiary.username,'category': "card" }) }}"
-            cardUrl=cardUrl.replace("card", cardId)
-            console.log(cardUrl)
+            let newCardUrl = cardUrl.replace("card", categorySlug)
             card.addEventListener("click", () => {
-                window.location = cardUrl;
+                window.location = newCardUrl;
             })
         }
     </script>

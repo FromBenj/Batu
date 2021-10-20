@@ -84,16 +84,6 @@ class Service
     private $price;
 
     /**
-     * @ORM\Column(type="datetime")
-     */
-    private $endingTime;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $startingTime;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Professional::class, inversedBy="services")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -109,6 +99,11 @@ class Service
      * @ORM\JoinColumn(nullable=false)
      */
     private $category;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $title;
 
 
     public function getId(): ?int
@@ -301,30 +296,6 @@ class Service
         return $this;
     }
 
-    public function getEndingTime(): ?\DateTimeInterface
-    {
-        return $this->endingTime;
-    }
-
-    public function setEndingTime(\DateTimeInterface $endingTime): self
-    {
-        $this->endingTime = $endingTime;
-
-        return $this;
-    }
-
-    public function getStartingTime(): ?\DateTimeInterface
-    {
-        return $this->startingTime;
-    }
-
-    public function setStartingTime(\DateTimeInterface $startingTime): self
-    {
-        $this->startingTime = $startingTime;
-
-        return $this;
-    }
-
     public function getProfessional(): ?Professional
     {
         return $this->professional;
@@ -362,6 +333,18 @@ class Service
     public function setCategory(?ServiceCategory $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(?string $title): self
+    {
+        $this->title = $title;
 
         return $this;
     }

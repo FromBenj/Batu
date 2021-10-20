@@ -31,10 +31,20 @@ class Appointment
     private $canceled = false;
 
     /**
-     * @ORM\OneToOne(targetEntity=Service::class, inversedBy="appointment", cascade={"persist", "remove"})
+     * @ORM\Column(type="datetime")
+     */
+    private $startingTime;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $endingTime;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Professional::class, inversedBy="appointments")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $service;
+    private $professional;
 
     public function __construct()
     {
@@ -69,14 +79,38 @@ class Appointment
         return $this;
     }
 
-    public function getService(): ?Service
+    public function getStartingTime(): ?\DateTimeInterface
     {
-        return $this->service;
+        return $this->startingTime;
     }
 
-    public function setService(Service $service): self
+    public function setStartingTime(\DateTimeInterface $startingTime): self
     {
-        $this->service = $service;
+        $this->startingTime = $startingTime;
+
+        return $this;
+    }
+
+    public function getEndingTime(): ?\DateTimeInterface
+    {
+        return $this->endingTime;
+    }
+
+    public function setEndingTime(\DateTimeInterface $endingTime): self
+    {
+        $this->endingTime = $endingTime;
+
+        return $this;
+    }
+
+    public function getProfessional(): ?Professional
+    {
+        return $this->professional;
+    }
+
+    public function setProfessional(?Professional $professional): self
+    {
+        $this->professional = $professional;
 
         return $this;
     }
