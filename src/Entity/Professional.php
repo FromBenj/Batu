@@ -56,14 +56,19 @@ class Professional implements UserInterface, PasswordAuthenticatedUserInterface
     private $services;
 
     /**
-     * @ORM\OneToMany(targetEntity=Appointment::class, mappedBy="professional")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $appointments;
+    private $firstName;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $lastName;
+
 
     public function __construct()
     {
         $this->services = new ArrayCollection();
-        $this->appointments = new ArrayCollection();
     }
 
 
@@ -204,32 +209,26 @@ class Professional implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection|Appointment[]
-     */
-    public function getAppointments(): Collection
+    public function getFirstName(): ?string
     {
-        return $this->appointments;
+        return $this->firstName;
     }
 
-    public function addAppointment(Appointment $appointment): self
+    public function setFirstName(?string $firstName): self
     {
-        if (!$this->appointments->contains($appointment)) {
-            $this->appointments[] = $appointment;
-            $appointment->setProfessional($this);
-        }
+        $this->firstName = $firstName;
 
         return $this;
     }
 
-    public function removeAppointment(Appointment $appointment): self
+    public function getLastName(): ?string
     {
-        if ($this->appointments->removeElement($appointment)) {
-            // set the owning side to null (unless already changed)
-            if ($appointment->getProfessional() === $this) {
-                $appointment->setProfessional(null);
-            }
-        }
+        return $this->lastName;
+    }
+
+    public function setLastName(string $lastName): self
+    {
+        $this->lastName = $lastName;
 
         return $this;
     }

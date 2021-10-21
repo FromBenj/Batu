@@ -6,3 +6,16 @@
 .leaflet-bottom.leaflet-right {
     display: none !important;
 }
+
+#current-location {
+    position: absolute;
+    z-index: 5000;
+    width: 23px;
+    right: 9px;
+    top: 9px;
+    cursor: pointer;
+}
+
+.map-container {
+    position: relative;
+}

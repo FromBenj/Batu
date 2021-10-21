@@ -18,6 +18,8 @@ class ProfessionalFixtures extends Fixture
         $faker  =  Faker\Factory::create('en_US');
         for($i=1; $i <= self::PROFESSIONAL_NUMBER; $i++) {
             $professional = new Professional();
+            $professional->setFirstName($faker->firstName);
+            $professional->setLastName($faker->lastName);
             $professional->setLanguages(["English"]);
             $professional->setRoles(["ROLE_USER"]);
             $professional->setEmail($faker->email);
@@ -26,6 +28,7 @@ class ProfessionalFixtures extends Fixture
             $this->addReference('professional_' . $i, $professional);
         }
         $professional = new Professional();
+        $professional->setLastName($faker->lastName);
         $professional->setLanguages(["English"]);
         $professional->setRoles(["ROLE_ADMIN"]);
         $professional->setEmail("test@test.fr");

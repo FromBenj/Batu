@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ServiceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -90,11 +92,6 @@ class Service
     private $professional;
 
     /**
-     * @ORM\OneToOne(targetEntity=Appointment::class, mappedBy="service", cascade={"persist", "remove"})
-     */
-    private $appointment;
-
-    /**
      * @ORM\ManyToOne(targetEntity=ServiceCategory::class, inversedBy="services")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -104,6 +101,21 @@ class Service
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $title;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Appointment::class, mappedBy="service")
+     */
+    private $appointments;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $address;
+
+    public function __construct()
+    {
+        $this->appointments = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -131,18 +143,6 @@ class Service
     public function setDescription(string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    public function getAddress(): ?string
-    {
-        return $this->address;
-    }
-
-    public function setAddress(string $address): self
-    {
-        $this->address = $address;
 
         return $this;
     }
@@ -308,23 +308,6 @@ class Service
         return $this;
     }
 
-    public function getAppointment(): ?Appointment
-    {
-        return $this->appointment;
-    }
-
-    public function setAppointment(Appointment $appointment): self
-    {
-        // set the owning side of the relation if necessary
-        if ($appointment->getService() !== $this) {
-            $appointment->setService($this);
-        }
-
-        $this->appointment = $appointment;
-
-        return $this;
-    }
-
     public function getCategory(): ?ServiceCategory
     {
         return $this->category;
@@ -345,6 +328,48 @@ class Service
     public function setTitle(?string $title): self
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Appointment[]
+     */
+    public function getAppointments(): Collection
+    {
+        return $this->appointments;
+    }
+
+    public function addAppointment(Appointment $appointment): self
+    {
+        if (!$this->appointments->contains($appointment)) {
+            $this->appointments[] = $appointment;
+            $appointment->setService($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAppointment(Appointment $appointment): self
+    {
+        if ($this->appointments->removeElement($appointment)) {
+            // set the owning side to null (unless already changed)
+            if ($appointment->getService() === $this) {
+                $appointment->setService(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(string $address): self
+    {
+        $this->address = $address;
 
         return $this;
     }

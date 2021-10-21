@@ -41,10 +41,10 @@ class Appointment
     private $endingTime;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Professional::class, inversedBy="appointments")
+     * @ORM\ManyToOne(targetEntity=Service::class, inversedBy="appointments")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $professional;
+    private $service;
 
     public function __construct()
     {
@@ -103,14 +103,14 @@ class Appointment
         return $this;
     }
 
-    public function getProfessional(): ?Professional
+    public function getService(): ?Service
     {
-        return $this->professional;
+        return $this->service;
     }
 
-    public function setProfessional(?Professional $professional): self
+    public function setService(?Service $service): self
     {
-        $this->professional = $professional;
+        $this->service = $service;
 
         return $this;
     }

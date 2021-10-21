@@ -11,23 +11,50 @@
             {{ category.name }}
         </div>
     </div>
-    <div id="services-map"></div>
-    {% foreach service in services %}
-        <div>{{ service.title }}</div>
-    {% endif %}
+    <div class="map-container">
+        <div id="current-location">
+            <img src="{{ asset('build/icons/'~ "current-location.svg") }}" alt="current location"/>
+        </div>
+        <div id="services-map" class="mb-5 mt-5"></div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="service-container w-75">
+            <div class="mb-3">
+                <h3 id="service-title" class="text-center"></h3>
+                <h5 id="service-specialization"class="text-center fst-italic"></h5>
+            </div>
+            <div class="mb-2 mt-2" id="service-description"></div>
+            <div class="mb-2 mt-2" id="service-professional"></div>
+            <div class="mb-2 mt-2" id="service-price-type"></div>
+            <div class="mb-2 mt-2" id="service-price"></div>
+            <div class="mb-2 mt-2" id="service-address"></div>
+            <div class="mb-2 mt-2" id="service-address-details"></div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block js %}
     <script>
-        let services = {
-        {% foreach service in services %}
+        const categoryServices = [
+        {% for service in services %}
             {
-                title: {{ service.title }},
-                longitude: {{ service.longitude }},
-                latitude: {{ service.latitude }},
-
+                "type": "Feature",
+                "properties": {
+                    "specialization": "{{ service.specialization }}",
+                    "title": "{{ service.title }}",
+                    "description": "{{ service.description }}",
+                    "professional": "{{ service.professional.firstName ~ " " ~ service.professional.lastName }}",
+                    "priceType": "{{ service.priceType }}",
+                    "price": "{{ service.price }}",
+                    "address": "{{ service.address }}",
+                    "addressDetails": "{{ service.addressDetails }}",
+                },
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [{{ service.latitude }}, {{ service.longitude }}],
+                },
             },
         {% endfor %}
-        }
+        ]
     </script>
 {% endblock %}
