@@ -92,7 +92,7 @@
             "@auto-scripts"
         ],
         "compile": [
-            "php bin/console doctrine:migrations:migrate"
+            "symfony console d:m:m"
         ]
     },
     "conflict": {
