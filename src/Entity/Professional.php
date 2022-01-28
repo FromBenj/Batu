@@ -14,14 +14,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class Professional implements UserInterface, PasswordAuthenticatedUserInterface
 {
-
-    CONST LANGUAGES = [
-        "English",
-        "Arabic",
-        "French",
-    ];
-
-
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -45,10 +37,6 @@ class Professional implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $password;
 
-    /**
-     * @ORM\Column(type="array")
-     */
-    private $language = [];
 
     /**
      * @ORM\OneToMany(targetEntity=Service::class, mappedBy="professional")
@@ -65,10 +53,16 @@ class Professional implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $lastName;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Language::class, inversedBy="professionals")
+     */
+    private $languages;
+
 
     public function __construct()
     {
         $this->services = new ArrayCollection();
+        $this->languages = new ArrayCollection();
     }
 
 
@@ -161,24 +155,6 @@ class Professional implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function getLanguages(): array
-    {
-        return $this->languages;
-    }
-
-    public function setLanguages(array $languages): self
-    {
-        $chosenLanguages = [];
-        foreach ($languages as $language) {
-            if (in_array($language, self::LANGUAGES, true)) {
-                $chosenLanguages[] = $language;
-            }
-            $this->languages = $chosenLanguages;
-        }
-
-        return $this;
-    }
-
     /**
      * @return Collection|Service[]
      */
@@ -229,6 +205,30 @@ class Professional implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastName(string $lastName): self
     {
         $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Language[]
+     */
+    public function getLanguages(): Collection
+    {
+        return $this->languages;
+    }
+
+    public function addLanguage(Language $language): self
+    {
+        if (!$this->languages->contains($language)) {
+            $this->languages[] = $language;
+        }
+
+        return $this;
+    }
+
+    public function removeLanguage(Language $language): self
+    {
+        $this->languages->removeElement($language);
 
         return $this;
     }

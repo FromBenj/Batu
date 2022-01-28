@@ -23,12 +23,12 @@ class ProfessionalController extends AbstractController
         $serviceForm = $this->createForm(ServiceType::class, $service);
         $serviceForm->handleRequest($request);
 
-
         if ($serviceForm->isSubmitted() && $serviceForm->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($service);
             $entityManager->flush();
         }
+
 
         return $this->render('professional/new-service.html.twig', [
             'form_service' => $serviceForm->createView(),

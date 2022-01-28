@@ -2,7 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\Language;
 use App\Entity\Service;
+use App\Entity\ServiceCategory;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -20,33 +23,20 @@ class ServiceType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $service = new Service();
-        $categories = $service::CATEGORIES;
-        $categoriesList = [];
-        foreach ($categories as $key => $value) {
-            $valueToTranslate = str_replace(' ', '-', strtolower($value));
-            $valueToTranslate = $this->translator->trans('app.professional.service.category.' . $valueToTranslate);
-            $categoriesList[$valueToTranslate] = $value ;
-        }
-        $languages = $service::LANGUAGES;
-        $languagesList = [];
-        foreach ($languages as $key => $value) {
-            $valueToTranslate = strtolower($value);
-            $valueToTranslate = $this->translator->trans('app.professional.service.language.' . $valueToTranslate);
-            $languagesList[$valueToTranslate] = $value ;
-        }
-
         $builder
-            ->add('category', ChoiceType::class, [
+            ->add('category', EntityType::class, [
                 'required' => true,
-                'choices' => $categoriesList,
+                'class' => ServiceCategory::class,
+                'choice_label' => 'name',
+
             ])
-            /*->add('languages', ChoiceType::class, [
+            ->add('languages', EntityType::class, [
                 'required' => true,
+                'class' => Language::class,
+                'choice_label' => 'name',
                 'multiple' => true,
                 'expanded' => true,
-                'choices' => $languagesList,
-            ])*/
+            ])
             ->add('specialization')
             ->add('description')
             ->add('addressDetails')

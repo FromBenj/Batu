@@ -6,6 +6,7 @@
             {{ "app.professional.service.new"|trans }}
         </div>
     </div>
+
     {% form_theme form_service 'bootstrap_5_layout.html.twig' %}
     <form method="post" action="{{ path('professional_new-service') }}" autocomplete="off">
         {{ form_row(form_service.category) }}

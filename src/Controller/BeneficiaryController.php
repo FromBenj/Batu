@@ -50,3 +50,5 @@ class BeneficiaryController extends AbstractController
         ]);
     }
 }
+
+
