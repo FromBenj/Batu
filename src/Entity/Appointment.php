@@ -20,12 +20,6 @@ class Appointment
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Beneficiary::class, inversedBy="appointments")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $beneficiary;
-
-    /**
      * @ORM\Column(type="boolean")
      */
     private $canceled = false;
@@ -46,6 +40,11 @@ class Appointment
      */
     private $service;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Beneficiary::class, inversedBy="appointments")
+     */
+    private $beneficiary;
+
     public function __construct()
     {
     }
@@ -53,18 +52,6 @@ class Appointment
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getBeneficiary(): Beneficiary
-    {
-        return $this->beneficiary;
-    }
-
-    public function setBeneficiary(Beneficiary $beneficiary): self
-    {
-        $this->beneficiary = $beneficiary;
-
-        return $this;
     }
 
     public function getCanceled(): ?bool
@@ -111,6 +98,18 @@ class Appointment
     public function setService(?Service $service): self
     {
         $this->service = $service;
+
+        return $this;
+    }
+
+    public function getBeneficiary(): ?Beneficiary
+    {
+        return $this->beneficiary;
+    }
+
+    public function setBeneficiary(?Beneficiary $beneficiary): self
+    {
+        $this->beneficiary = $beneficiary;
 
         return $this;
     }

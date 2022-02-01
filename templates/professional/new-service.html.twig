@@ -10,7 +10,6 @@
     {% form_theme form_service 'bootstrap_5_layout.html.twig' %}
     <form method="post" action="{{ path('professional_new-service') }}" autocomplete="off">
         {{ form_row(form_service.category) }}
-        {{ form_row(form_service.languages) }}
         {{ form_row(form_service.specialization) }}
         {{ form_row(form_service.description) }}
         <div id="address-container" class="mb-3">

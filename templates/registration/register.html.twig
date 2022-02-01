@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<title>Register</title>
+
+{% block body %}
+    <h1>Register</h1>
+    {% form_theme form_registration 'bootstrap_5_layout.html.twig' %}
+    {{ form_start(form_registration) }}
+        {{ form_row(form_registration.userType, {
+        label: 'I am:'
+        }) }}
+        {{ form_row(form_registration.username, {
+            label: 'Username'
+        }) }}
+        {{ form_row(form_registration.plainPassword, {
+            label: 'Password'
+        }) }}
+        {{ form_row(form_registration.agreeTerms) }}
+
+        <button type="submit" class="btn">Register</button>
+    {{ form_end(form_registration) }}
+{% endblock %}

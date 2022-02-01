@@ -30,13 +30,6 @@ class ServiceType extends AbstractType
                 'choice_label' => 'name',
 
             ])
-            ->add('languages', EntityType::class, [
-                'required' => true,
-                'class' => Language::class,
-                'choice_label' => 'name',
-                'multiple' => true,
-                'expanded' => true,
-            ])
             ->add('specialization')
             ->add('description')
             ->add('addressDetails')
