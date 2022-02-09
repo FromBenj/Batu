@@ -18,7 +18,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 class BeneficiaryController extends AbstractController
 {
     /**
-     * @Route("/home/{username}", name="home", methods={"GET"})
+     * @Route("/home/{beneficiary}", name="home", methods={"GET"})
+     * @Entity("beneficiary", expr="repository.find(beneficiary)")
      */
     public function index(Beneficiary $beneficiary, ServiceCategoryRepository $serviceCategoryRepository): Response
     {

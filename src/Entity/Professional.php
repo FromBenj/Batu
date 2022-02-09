@@ -21,11 +21,6 @@ class Professional
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=180, unique=true)
-     */
-    private $email;
-
-    /**
      * @ORM\OneToMany(targetEntity=Service::class, mappedBy="professional")
      */
     private $services;
@@ -36,7 +31,7 @@ class Professional
     private $firstName;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $lastName;
 
@@ -51,6 +46,16 @@ class Professional
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $email;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Planning::class, mappedBy="professional", cascade={"persist", "remove"})
+     */
+    private $planning;
+
 
     public function __construct(User $user)
     {
@@ -63,18 +68,6 @@ class Professional
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
     }
 
     /**
@@ -124,7 +117,7 @@ class Professional
         return $this->lastName;
     }
 
-    public function setLastName(string $lastName): self
+    public function setLastName(?string $lastName): self
     {
         $this->lastName = $lastName;
 
@@ -158,5 +151,34 @@ class Professional
     public function getUser(): ?User
     {
         return $this->user;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(?string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getPlanning(): ?Planning
+    {
+        return $this->planning;
+    }
+
+    public function setPlanning(Planning $planning): self
+    {
+        // set the owning side of the relation if necessary
+        if ($planning->getProfessional() !== $this) {
+            $planning->setProfessional($this);
+        }
+
+        $this->planning = $planning;
+
+        return $this;
     }
 }
