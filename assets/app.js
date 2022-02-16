@@ -32,3 +32,10 @@ choosePrice();
 
 //swiper
 import {swiper} from "./js/categoriesSlider";
+
+// CRUD on planning
+import {newSlot, deleteSlot} from "./js/planningManagement";
+window.addEventListener("DOMContentLoaded", () => {
+    newSlot();
+    deleteSlot();
+});

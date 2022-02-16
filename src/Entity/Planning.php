@@ -3,7 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PlanningRepository;
-use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -11,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Planning
 {
+    public const WEEK_DAYS = ["Monday", "Tuesday", "Wednesday","Thursday", "Friday", "Saturday", "Sunday"];
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -19,56 +22,25 @@ class Planning
     private $id;
 
     /**
-     * @ORM\Column(type="array")
-     */
-    private $slots = [];
-
-    /**
      * @ORM\OneToOne(targetEntity=Professional::class, inversedBy="planning", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $professional;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Slot::class, mappedBy="planning")
+     */
+    private $slots;
+
     public function __construct()
     {
-        $this->slots = [
-            "monday"    => [],
-            "tuesday"   => [],
-            "wednesday" => [],
-            "thursday"  => [],
-            "friday"    => [],
-            "saturday"  => [],
-            "sunday"    => [],
-        ];
+        $this->slots = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getSlots(): ?array
-    {
-        return $this->slots;
-    }
-
-    public function setSlots(array $slots): self
-    {
-        $this->slots = $slots;
-
-        return $this;
-    }
-
-    public function addSlot(string $day, dateTime $startTime, dateTime $endTime): ?self
-    {
-        if ($startTime && $endTime && array_key_exists($day, $this->slots)) {
-            $slots = $this->slots;
-            $slots[$day][] = [$startTime, $endTime];
-
-            return $this;
-        }
-
-        return null;
     }
 
     public function getProfessional(): ?Professional
@@ -79,6 +51,36 @@ class Planning
     public function setProfessional(Professional $professional): self
     {
         $this->professional = $professional;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Slot[]
+     */
+    public function getSlots(): Collection
+    {
+        return $this->slots;
+    }
+
+    public function addSlot(Slot $slot): self
+    {
+        if (!$this->slots->contains($slot)) {
+            $this->slots[] = $slot;
+            $slot->setPlanning($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSlot(Slot $slot): self
+    {
+        if ($this->slots->removeElement($slot)) {
+            // set the owning side to null (unless already changed)
+            if ($slot->getPlanning() === $this) {
+                $slot->setPlanning(null);
+            }
+        }
 
         return $this;
     }

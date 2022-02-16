@@ -3,6 +3,7 @@ $first-color: #0976C6;
 $second-color: #ccffd9;
 $third-color: #398090;
 $logo-font: "Comfortaa", "Open-Sans","Roboto";
+$button-radius: 2.5px;
 
 #main-content {
     margin: 4vw 6vw 45px 6vw;
@@ -37,4 +38,12 @@ $logo-font: "Comfortaa", "Open-Sans","Roboto";
 
 .mr-20px {
     margin-right: 20px;
+}
+
+.pl-4rem {
+    padding-left: 4rem;
+}
+
+.pr-4rem {
+    padding-right: 4rem;
 }

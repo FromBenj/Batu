@@ -62,6 +62,7 @@ class Professional
         $this->services = new ArrayCollection();
         $this->languages = new ArrayCollection();
         $this->user = $user;
+        $this->planning = new Planning();
     }
 
 

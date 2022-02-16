@@ -1,4 +1,24 @@
 {% extends 'layout/base.html.twig' %}
 
 {% block content %}
+    <div class="d-flex justify-content-center align-items-center">
+        <h3>Planning</h3>
+    </div>
+    <div class="container-fluid d-flex justify-content-between">
+        {% for key, day in week_days %}
+            <div id="{{ "day-" ~ key }}">
+                <div class="text-center">{{ day }}</div>
+                <div class=" pl-2 pr-2 mt-3 mb-3 d-flex flex-column justify-content-center align-items-center">
+                    <div>Nouvelle disponibilité</div>
+                    <button class="add">+</button>
+                </div>
+                {{ form_start(slot_form, {'attr': {'id': 'form-' ~ key}}) }}
+                {{ form_widget(slot_form) }}
+                {{ form_end(slot_form) }}
+            </div>
+        {% endfor %}
+    </div>
+    {% endblock %}
+
+    {% block js %}
 {% endblock %}

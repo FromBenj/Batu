@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Professional;
 use App\Entity\Service;
 use App\Form\ServiceType;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,14 +31,14 @@ class ProfessionalController extends AbstractController
         /**
      * @Route("/new-service", name="new-service")
      */
-    public function newService(Request $request): Response
+    public function newService(Request $request, ManagerRegistry $doctrine): Response
     {
         $service = new Service();
         $serviceForm = $this->createForm(ServiceType::class, $service);
         $serviceForm->handleRequest($request);
 
         if ($serviceForm->isSubmitted() && $serviceForm->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager =$doctrine->getManager();
             $entityManager->persist($service);
             $entityManager->flush();
         }

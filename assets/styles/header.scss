@@ -2,7 +2,7 @@
   width: 100% !important;
   height: 70px;
   background-color: $first-color;
-  border-radius: 0 0 5px 5px;
+  border-radius: 0 0 $button-radius $button-radius;
 }
 
 #header-title {
